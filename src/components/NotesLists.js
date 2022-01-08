@@ -1,10 +1,10 @@
 import { useState ,useEffect } from "react"; 
 import { Link } from "react-router-dom";
-import getAll from "../services/NoteService"
+import {getAll} from "../services/NoteService"
 const NotesList = () =>{
    const[notes,setNotes] =  useState([]);
    useEffect(() => {
-       getAll()
+    getAll()
        .then(response =>{
            console.log('printing response', response.data);
            setNotes(response.data);
