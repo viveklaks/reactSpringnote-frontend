@@ -1,7 +1,7 @@
 import httpClient from "../http-common";
 
 const getAll = () =>{
-    return httpClient.get("/notes");
+    return httpClient.get("/api/notes");
 }
 
 export default  getAll ;
