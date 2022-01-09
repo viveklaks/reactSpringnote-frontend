@@ -12,5 +12,8 @@ const get =(id)=>{
 const remove =(id)=>{
     return httpClient.delete(`/api/notes/${id}`);
 }
+const update =(data)=>{
+    return httpClient.put(`/api/notes`,data);
+}
 
-export  {getAll,create,get,remove};
+export  {getAll,create,get,remove,update};

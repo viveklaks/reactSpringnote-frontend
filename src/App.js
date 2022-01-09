@@ -19,6 +19,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<NotesList/>}/>
         <Route path="/addnote" element={<AddNote/>}/>
+        <Route path="/notes/edit/:id" element={<AddNote/>}/>
         <Route path="/notes/:id" element={<NoteDetails/>}/>
         <Route exact path="*" element={<NotFound/>}/>
       </Routes>

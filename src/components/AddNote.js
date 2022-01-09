@@ -1,26 +1,57 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {create} from '../services/NoteService'
+import { useNavigate, useParams } from 'react-router-dom';
+import {create, get, update} from '../services/NoteService'
 export const AddNote = () => {
+    const {id} =useParams();
     const[title, setTitle] = useState('');
     const[body, setBody] = useState('');
     const[category, setCategory] = useState('programming');
     const history =  useNavigate();
     const saveNote = (e) => {
         e.preventDefault();
-        const note = {title, body, category};
-        create(note)
+        const note = {title, body, category,id};
+        if(id){
+            update(note)
+            .then(response => {
+                console.log("Note updated successfully", response.data);
+                history("/");
+
+            })
+            .catch(error => {
+                console.log('something went wrong', error);
+            })
+        }
+        else{
+            create(note)
             .then(response => {
                 console.log("Note added successfully", response.data);
                 history("/");
             })
             .catch(error => {
+                console.log('something went wrong', error);
+            })
+        }
+        
+    }
+    useEffect(()=>{
+        if(id){
+            get(id)
+            .then(note =>{
+                setTitle(note.data.title);
+                setBody(note.data.body);
+                setCategory(note.data.category);
+            }).catch(error => {
                 console.log('something went wroing', error);
             })
-    }
+        }
+    },[id])
     return (
         <div className='create'>
+            <div className='text-center'>
+            <h5>{id ? "Update a Note" : "Add a New Note"}</h5>
+            </div>
+            
             <form>
             <div className="form-group">
 
@@ -61,7 +92,7 @@ export const AddNote = () => {
 
 </div>
 <div className="text-center">
-<button onClick={(e) => saveNote(e)}>Add note</button>
+<button onClick={(e) => saveNote(e)}>{id ? "Update Note" : "Add Note"}</button>
 </div>
             </form>
         </div>

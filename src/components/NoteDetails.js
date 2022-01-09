@@ -13,7 +13,7 @@ const NoteDetails = () => {
         }).catch(error =>{
             console.log('Something went wrong',error);
         })
-    })
+    },[id])
     const deleteNote = ()=>{
         remove(id)
         .then(response =>{
@@ -22,6 +22,9 @@ const NoteDetails = () => {
         .catch(error =>{
             console.log('Something went wrong',error);
         })
+    }
+    const editNote = ()=>{
+        history(`/notes/edit/${id}`);
     }
     return (
       <div className="note-details main-content">
@@ -33,7 +36,8 @@ const NoteDetails = () => {
              </div>
              <div className="mb-3">{currentNote.body}</div>
           </article>
-        <button onClick={deleteNote}>Delete</button>
+          <button onClick={editNote}>Edit</button>
+        <button onClick={deleteNote} className='ml-3'>Delete</button>
       </div>
       
     )
