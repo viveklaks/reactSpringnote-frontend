@@ -9,5 +9,8 @@ const create = (data) =>{
 const get =(id)=>{
     return httpClient.get(`/api/notes/${id}`);
 }
+const remove =(id)=>{
+    return httpClient.delete(`/api/notes/${id}`);
+}
 
-export  {getAll,create,get};
+export  {getAll,create,get,remove};

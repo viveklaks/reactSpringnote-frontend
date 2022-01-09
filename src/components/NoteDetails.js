@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import {useState} from 'react';
-import { useParams } from 'react-router-dom';
-import {get} from "../services/NoteService"
+import { useNavigate, useParams } from 'react-router-dom';
+import {get, remove} from "../services/NoteService"
 const NoteDetails = () => {
     const{id}=useParams();
     const [currentNote,setCurrentNote] = useState('');
+    const history = useNavigate();
     useEffect(()=>{
         get(id)
         .then(note=>{
@@ -13,7 +14,15 @@ const NoteDetails = () => {
             console.log('Something went wrong',error);
         })
     })
-
+    const deleteNote = ()=>{
+        remove(id)
+        .then(response =>{
+            history("/")
+        })
+        .catch(error =>{
+            console.log('Something went wrong',error);
+        })
+    }
     return (
       <div className="note-details main-content">
           <article>
@@ -24,7 +33,7 @@ const NoteDetails = () => {
              </div>
              <div className="mb-3">{currentNote.body}</div>
           </article>
-
+        <button onClick={deleteNote}>Delete</button>
       </div>
       
     )
