@@ -1,6 +1,7 @@
 import { useState ,useEffect } from "react"; 
 import { Link } from "react-router-dom";
-import {getAll} from "../services/NoteService"
+import {getAll} from "../services/NoteService";
+import Moment from "react-moment";
 const NotesList = () =>{
    const[notes,setNotes] =  useState([]);
    useEffect(() => {
@@ -28,6 +29,7 @@ const NotesList = () =>{
                           <h5 className="primary-color text-capitalize">{note.title}</h5>  
                           <p>category: {note.category}</p> 
                           <p>details : {note.body}</p>
+                          <Moment fromNow className="text-italic">{note.updatedAt}</Moment>
                         </Link>
                           
                     </div>
