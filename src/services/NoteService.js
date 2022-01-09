@@ -6,5 +6,8 @@ const getAll = () =>{
 const create = (data) =>{
     return httpClient.post("/api/notes",data);
 }
+const get =(id)=>{
+    return httpClient.get(`/api/notes/${id}`);
+}
 
-export  {getAll,create};
+export  {getAll,create,get};
